@@ -5,12 +5,11 @@
   </head>
   <body>
     <div ng-app="myApp">
-      <input type="text" ng-model="model.title">
-      <input type="text" ng-model="model.content">
+      <script type="text/ng-template" id="zippy.html" charset="utf-8">
+        <div><input type='text' ng-model='model.input'></div>
+      </script>
       <div ng-controller="AppCtrl">
-        <zippy title="{{model.title}}">
-          This is the {{model.content}}
-        </zippy>
+        <dumb-password></dumb-password>
       </div>
     </div>
     <script src="angular.js" type="text/javascript" charset="utf-8"></script>
