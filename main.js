@@ -6,8 +6,17 @@ app.config( function($routeProvider) {
       templateUrl: 'app.html',
       controller: 'AppCtrl'
     })
-    .when('/pizza', {
-      template: "Yum!!!"
+    .when('/pizza/:crust/:toppings', {
+      template: "Yum!!!",
+      redirectTo: function(routeParams, path, search) {
+        console.log(routeParams);
+        console.log(path);
+        console.log(search);
+        return '/' + routeParams.crust
+      }
+    })
+    .when('/deep', {
+      template: 'Deep dish'
     })
     .otherwise( {
       template: "I have no idea where you are" 
