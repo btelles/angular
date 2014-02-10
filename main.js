@@ -1,30 +1,14 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngRoute']);
 
-app.controller("AppCtrl", function($scope) {});
+app.config( function($routeProvider) {
+  $routeProvider.when('/', {
+    templateUrl: 'app.html',
+    controller: 'AppCtrl'
+  });
+})
 
-app.directive('dumbPassword', function() {
-
-  var validElement = angular.element("<div>{{model.input}}</div>");
-
-  this.link = function(scope) {
-    scope.$watch("model.input", function(value) {
-      if (value === 'password') {
-        validElement.toggleClass('alert-box alert')
-      }
-    });
-  }
-
-  return {
-    restrict: 'E',
-    replace: true,
-    compile: function(tElem) {
-      tElem.append(validElement)
-      return link;
-    },
-
-    templateUrl: 'zippy.html'
+app.controller('AppCtrl', function($scope) {
+  $scope.model = {
+    title: 'This is my app!!!'
   }
 });
-
-
-
