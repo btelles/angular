@@ -4,20 +4,27 @@ app.config(function($routeProvider) {
   $routeProvider
     .when('/', {
       template: "<h1>{{model.message}}</h1>",
-      controller: "AppCtrl",
+      controller: "ViewCtrl",
       resolve: {
-        app: function($q, $timeout) {
-          var defer = $q.defer();
-          $timeout( function() {
-            console.log("hello");
-            defer.resolve();
-          }, 2000);
-          return defer.promise;
-        }
+        loadData: viewCtrl.loadData
       }
     })
 });
 
-app.controller('AppCtrl', function($scope) {
-  $scope.model = { message: "I'm a great app"};
+var appCtrl = app.controller('AppCtrl', function($rootScope) {
+  $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
+    console.log(rejection);
+  })
+})
+var viewCtrl = app.controller('ViewCtrl', function($scope, $route) {
+  $scope.model = { message: "I'm a great app " + $route.current.locals.loadData};
 });
+
+viewCtrl.loadData = function($q, $timeout) {
+  var defer = $q.defer();
+  $timeout( function() {
+    console.log("hello");
+    defer.reject("Hi there");
+  }, 2000);
+  return defer.promise;
+}
