@@ -1,6 +1,13 @@
+fork do
+  require 'guard'
+  require 'guard/cli'
+  Guard::CLI.start
+end
+
 use Rack::Static,
   urls: %w{/},
   root: "./"
+
 
 run lambda { |env|
   [
