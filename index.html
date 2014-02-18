@@ -5,7 +5,10 @@
   </head>
   <body>
     <div ng-app="app" ng-controller='AppCtrl'>
-      <h1 class="panel">{{title}}</h1>
+      <div class="button" ng-repeat="item in 'somewrd'.split('')" ng-click="ev = $event">
+        {{$index + 1 }}. {{item}}
+        {{ev.pageX}}
+      </div>
     </div>
     <script src="angular.js" type="text/javascript" charset="utf-8"></script>
     <script src="angular-route.js" type="text/javascript" charset="utf-8"></script>
