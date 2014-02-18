@@ -1,5 +1,5 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngAnimate']);
 
-app.controller("AppCtrl", function($scope) {
-  this.things = ['one','two','three'];
+app.controller("AppCtrl", function() {
+  this.toggle = true;
 })
