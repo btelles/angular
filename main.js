@@ -1,42 +1,23 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('app', []);
 
-app.config(function($routeProvider) {
-  $routeProvider
-    .when('/', {
-      template: "<h1>{{model.message}}</h1>",
-      controller: "ViewCtrl",
-      resolve: {
-        loadData: viewCtrl.loadData
-      }
-    })
+app.factory("contacts", function() {
+  return [
+    { "firstName": "bob", "lastName": "smith" },
+    { "firstName": "bob", "lastName": "douglas" },
+    { "firstName": "bob", "lastName": "jones" }
+  ]
 });
 
-app.directive('error', function($rootScope) {
-  return {
-    restrict: 'E',
-    template: '<div class="alert-box alert" ng-show="isError">Error</div>',
-    link: function(scope) {
-      $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
-        scope.isError = true;
-      })
-    }
+app.controller("AppCtrl", function(contacts) {
+  this.contacts = contacts;
+  this.selectedContact = null;
+  this.contactCopy = null;
+
+  this.selectContact = function(contact) {
+    this.selectedContact = contact;
+    this.contactCopy = angular.copy(contact);
   }
-})
-
-var appCtrl = app.controller('AppCtrl', function($rootScope) {
-  $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
-    console.log(rejection);
-  })
-})
-var viewCtrl = app.controller('ViewCtrl', function($scope, $route) {
-  $scope.model = { message: "I'm a great app " + $route.current.locals.loadData};
+  this.saveContact = function() {
+    this.selectedContact.firstName = this.contactCopy.firstName
+  }
 });
-
-viewCtrl.loadData = function($q, $timeout) {
-  var defer = $q.defer();
-  $timeout( function() {
-    console.log("hello");
-    defer.reject("Hi there");
-  }, 2000);
-  return defer.promise;
-}

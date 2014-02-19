@@ -1,0 +1,19 @@
+.toggle {
+  transition: linear 1s;
+}
+
+.toggle.ng-enter {
+  opacity: 0;
+}
+
+.toggle.ng-enter-active {
+  opacity: 1;
+}
+
+.toggle.ng-leave {
+  opacity: 1;
+}
+
+.toggle.ng-leave-active {
+  opacity: 0;
+}
