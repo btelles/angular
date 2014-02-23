@@ -6,24 +6,12 @@
   </head>
   <body>
     <div ng-app="app" ng-controller="AppCtrl as app">
-      <form>
-        <input type="text" ng-model="app.contactCopy.firstName" />
-        <button ng-click="app.saveContact()">Save</button>
-      </form>
-      <table class="table table-scriped">
-        <thead>
-          <tr>
-            <td>First</td>
-            <td>Last</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="contact in app.contacts" ng-click="app.selectContact(contact)">
-            <td>{{contact.firstName}}</td>
-            <td>{{contact.lastName}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div ng-repeat="person in app.people">
+        {{person.firstName}} {{person.lastName}}
+      </div>
+      <input type="text" ng-model="app.person.firstName">
+      <input type="text" ng-model="app.person.lastName">
+      <input type="button" ng-click="app.addPerson(app.person)">
     </div>
     <script src="bower_components/angular/angular.js" type="text/javascript" charset="utf-8"></script>
     <script src="main.js" type="text/javascript" charset="utf-8"></script>
